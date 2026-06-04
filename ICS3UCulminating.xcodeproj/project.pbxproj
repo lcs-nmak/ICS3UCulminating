@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		2F82D98A2FCE08610018D283 /* ICS3UCulminatingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F82D9892FCE08610018D283 /* ICS3UCulminatingApp.swift */; };
 		2F82D98C2FCE08610018D283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F82D98B2FCE08610018D283 /* Assets.xcassets */; };
-		2F82D98F2FCE08610018D283 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F82D98E2FCE08610018D283 /* House.swift */; };
-		2F82D9922FCE08610018D283 /* HouseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F82D9912FCE08610018D283 /* HouseListViewModel.swift */; };
-		2F82D9952FCE08610018D283 /* HousesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F82D9942FCE08610018D283 /* HousesListView.swift */; };
-		2F82D9972FCE08610018D283 /* HouseItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F82D9962FCE08610018D283 /* HouseItemView.swift */; };
 		2F82D9992FCE08610018D283 /* RELEASE.md in Resources */ = {isa = PBXBuildFile; fileRef = 2F82D9982FCE08610018D283 /* RELEASE.md */; };
 		2F82D99E2FD05AC60018D283 /* BoardElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F82D99D2FD05AC60018D283 /* BoardElement.swift */; };
 		2F82D9A02FD05AC60018D283 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F82D99F2FD05AC60018D283 /* Player.swift */; };
@@ -23,10 +19,6 @@
 		2F82D9862FCE08610018D283 /* ICS3UCulminating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICS3UCulminating.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F82D9892FCE08610018D283 /* ICS3UCulminatingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS3UCulminatingApp.swift; sourceTree = "<group>"; };
 		2F82D98B2FCE08610018D283 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2F82D98E2FCE08610018D283 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
-		2F82D9912FCE08610018D283 /* HouseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseListViewModel.swift; sourceTree = "<group>"; };
-		2F82D9942FCE08610018D283 /* HousesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesListView.swift; sourceTree = "<group>"; };
-		2F82D9962FCE08610018D283 /* HouseItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseItemView.swift; sourceTree = "<group>"; };
 		2F82D9982FCE08610018D283 /* RELEASE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RELEASE.md; sourceTree = "<group>"; };
 		2F82D99D2FD05AC60018D283 /* BoardElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardElement.swift; sourceTree = "<group>"; };
 		2F82D99F2FD05AC60018D283 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -68,7 +60,6 @@
 				2F82D9892FCE08610018D283 /* ICS3UCulminatingApp.swift */,
 				2F82D98D2FCE08610018D283 /* Model */,
 				2F82D9902FCE08610018D283 /* ViewModels */,
-				2F82D9932FCE08610018D283 /* Views */,
 			);
 			path = ICS3UCulminating;
 			sourceTree = "<group>";
@@ -76,7 +67,6 @@
 		2F82D98D2FCE08610018D283 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2F82D98E2FCE08610018D283 /* House.swift */,
 				2F82D99D2FD05AC60018D283 /* BoardElement.swift */,
 				2F82D99F2FD05AC60018D283 /* Player.swift */,
 			);
@@ -86,19 +76,9 @@
 		2F82D9902FCE08610018D283 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				2F82D9912FCE08610018D283 /* HouseListViewModel.swift */,
 				2F82D9A42FD05E700018D283 /* GameMatch.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		2F82D9932FCE08610018D283 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				2F82D9942FCE08610018D283 /* HousesListView.swift */,
-				2F82D9962FCE08610018D283 /* HouseItemView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,12 +154,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F82D9972FCE08610018D283 /* HouseItemView.swift in Sources */,
-				2F82D98F2FCE08610018D283 /* House.swift in Sources */,
-				2F82D9952FCE08610018D283 /* HousesListView.swift in Sources */,
 				2F82D99E2FD05AC60018D283 /* BoardElement.swift in Sources */,
 				2F82D9A02FD05AC60018D283 /* Player.swift in Sources */,
-				2F82D9922FCE08610018D283 /* HouseListViewModel.swift in Sources */,
 				2F82D98A2FCE08610018D283 /* ICS3UCulminatingApp.swift in Sources */,
 				2F82D9A52FD05E700018D283 /* GameMatch.swift in Sources */,
 			);
