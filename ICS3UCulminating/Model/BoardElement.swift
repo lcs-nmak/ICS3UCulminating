@@ -7,12 +7,6 @@
 
 import Foundation
 
-// Defines whether the element is a snake (goes down) or a ladder (goes up)
-enum BoardElementType {
-    case snake
-    case ladder
-}
-
 struct BoardElement: Identifiable {
     
     // MARK: - Stored properties
