@@ -7,25 +7,25 @@
 
 import Foundation
 
+/// A BoardElement represents a special feature on the board: either a Snake or a Ladder.
+/// This structure acts as a "Data Container".
 struct BoardElement: Identifiable {
     
-    // MARK: - Stored properties
+    // MARK: - Stored properties (INPUTS for construction)
     
-    // Unique identifier for SwiftUI lists and loops
     let id = UUID()
     
-    // Whether this is a snake or a ladder
-    let type: BoardElementType
+    // WHY ARE THESE USED? 
+    // These properties define the configuration of a snake or ladder.
+    // They are "Inputs" because they are provided when we create each element in GameMatch.
     
-    // The square number where the player lands to trigger the effect
-    let startSquare: Int
-    
-    // The square number where the player is moved to
-    let endSquare: Int
+    let type: BoardElementType  // The "What": Snake or Ladder?
+    let startSquare: Int        // The "Where": Which square triggers the effect?
+    let endSquare: Int          // The "Destination": Where does the player end up?
     
     // MARK: - Computed properties
     
-    // A human-readable description of what this element does
+    // OUTPUT: This is a "Derived Output" used to explain the element's purpose to a user.
     var description: String {
         if type == .snake {
             return "Snake from \(startSquare) down to \(endSquare)"

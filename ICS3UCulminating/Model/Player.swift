@@ -8,27 +8,32 @@
 import Foundation
 import Observation
 
-// We use @Observable so SwiftUI views automatically update when player properties change
+/// The Player class represents a single participant in the game.
+/// We mark it with @Observable so that when a player's 'currentSquare' 
+/// changes, the UI knows exactly which circle to move on the board.
 @Observable
 class Player: Identifiable {
     
     // MARK: - Stored properties
     
-    // Unique identifier for the player
+    // A unique identifier for the player. Identifiable is required for ForEach loops in SwiftUI.
     let id = UUID()
     
-    // The player's display name
+    // The name chosen by the user or "Computer".
     let name: String
     
-    // True if this player is controlled by the computer
+    // A flag to distinguish between the user and the automated AI player.
     let isAI: Bool
     
-    // The current square position on the board (1 to 100)
+    // Tracks where the player is currently sitting (from 1 to 100).
     var currentSquare: Int = 1
     
     // MARK: - Initializer
     
-    // Creates a new player with a name and AI status
+    /// Creates a new player.
+    /// - Parameters:
+    ///   - name: The display name.
+    ///   - isAI: Set to true if this is the computer.
     init(name: String, isAI: Bool = false) {
         self.name = name
         self.isAI = isAI

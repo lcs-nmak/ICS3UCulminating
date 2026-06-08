@@ -8,50 +8,63 @@
 import Foundation
 import Observation
 
-// GameMatch acts as the ViewModel, managing the game state and logic
+/// The GameMatch class is our "ViewModel". 
+/// It acts as the brain of the game, holding all the rules and the current state of play.
 @Observable
 class GameMatch {
     
-    // MARK: - Stored properties
+    // MARK: - Stored properties (OUTPUTS for the UI)
+    // These properties act as the "Outputs" of our game logic. 
+    // The View reads these values to decide what to show the user.
     
-    // List of players in the game (Human and AI)
+    /// WHY USE AN ARRAY? We use an [Array] for players because we have a list of similar items.
+    /// Arrays allow us to:
+    /// 1. Keep the players in a specific order (Human first, then AI).
+    /// 2. Use a loop to draw them all on the board.
+    /// 3. Easily add more players in the future if we wanted a 4-player game.
     var players: [Player] = []
     
-    // List of snakes and ladders on the board
+    /// WHY USE AN ARRAY? boardElements stores all 21 snakes and ladders.
+    /// We use an array here so we can iterate (loop) through the list every time 
+    /// a player moves to check: "Is the current square in this list?"
     var boardElements: [BoardElement] = []
     
-    // Index of the player whose turn it currently is
+    // An integer to keep track of whose turn it is.
+    // OUTPUT: The UI uses this to display "Nathan's Turn" or "Computer's Turn".
     var currentPlayerIndex: Int = 0
     
-    // The result of the most recent dice roll (1-6)
+    // OUTPUT: The UI reads this to show the dice image or number.
     var diceRoll: Int = 0
     
-    // Set when a player reaches square 100
+    // OUTPUT: The UI checks if this is not 'nil' to show the "Winner" message.
     var winningPlayer: Player? = nil
     
-    // A history of recent game events to display to the user
+    /// WHY USE AN ARRAY? The game log is a list of events. 
+    /// We use an array so we can keep adding new messages to the end and 
+    /// remove the oldest ones from the front to keep the list a manageable size.
     var gameLog: [String] = []
     
     // MARK: - Computed properties
     
-    // Convenience property to get the player who is currently moving
+    // This is a "Calculated Output". It doesn't store data itself, but 
+    // calculates which player is active based on the 'currentPlayerIndex'.
     var currentPlayer: Player {
         return players[currentPlayerIndex]
     }
     
     // MARK: - Initializer
     
-    // Automatically sets up the board when the game is created
     init() {
         setupBoard()
     }
     
     // MARK: - Functions
     
-    // Defines the positions of all snakes and ladders on the 100-square board
+    /// Defines the specific locations of every snake and ladder.
+    /// This function "outputs" a full list of board elements into our array.
     func setupBoard() {
+        // We are populating our array with 21 different BoardElement objects.
         boardElements = [
-            // Ladders: Move players UP the board
             BoardElement(type: .ladder, startSquare: 2, endSquare: 38),
             BoardElement(type: .ladder, startSquare: 7, endSquare: 14),
             BoardElement(type: .ladder, startSquare: 8, endSquare: 31),
@@ -64,7 +77,6 @@ class GameMatch {
             BoardElement(type: .ladder, startSquare: 78, endSquare: 98),
             BoardElement(type: .ladder, startSquare: 87, endSquare: 94),
             
-            // Snakes: Move players DOWN the board
             BoardElement(type: .snake, startSquare: 16, endSquare: 6),
             BoardElement(type: .snake, startSquare: 46, endSquare: 25),
             BoardElement(type: .snake, startSquare: 49, endSquare: 11),
@@ -78,35 +90,35 @@ class GameMatch {
         ]
     }
     
-    // Starts a new game with one human player and one AI opponent
+    /// FUNCTION INPUT: 'playerName' is an input provided by the View.
+    /// The function takes this string and uses it to customize the Player object.
     func startGame(playerName: String) {
         let human = Player(name: playerName, isAI: false)
         let ai = Player(name: "Computer", isAI: true)
+        
+        // INPUT -> STORAGE: We take our new players and store them in the array.
         players = [human, ai]
         currentPlayerIndex = 0
         winningPlayer = nil
         gameLog = ["Game started! \(playerName) vs Computer"]
     }
     
-    // Main game action: Rolls a die and moves the current player
+    /// Logic for rolling the dice.
     func rollDice() {
-        // Prevent action if game is already over
         guard winningPlayer == nil else { return }
         
-        // Generate a random number between 1 and 6
+        // INTERNAL INPUT: We generate a random number as an input for the move logic.
         diceRoll = Int.random(in: 1...6)
+        
         let player = currentPlayer
         addToLog("\(player.name) rolled a \(diceRoll)")
         
-        // Move the player based on the roll
         movePlayer(player, by: diceRoll)
         
-        // Check for victory
         if player.currentSquare == 100 {
             winningPlayer = player
-            addToLog("\(player.name) wins!")
+            addToLog("\(player.name) wins the game!")
         } else {
-            // Rule variation: Rolling a 6 grants an extra turn
             if diceRoll != 6 {
                 nextTurn()
             } else {
@@ -115,41 +127,43 @@ class GameMatch {
         }
     }
     
-    // Internal logic to update a player's position and handle board effects
+    /// FUNCTION INPUTS: 
+    /// 1. 'player' tells the function WHICH player to move.
+    /// 2. 'steps' tells the function HOW FAR to move them.
+    /// This allows one function to be used for both Human and AI moves.
     private func movePlayer(_ player: Player, by steps: Int) {
         let newSquare = player.currentSquare + steps
         
-        // Rule variation: Exact roll required to land on 100
         if newSquare > 100 {
             addToLog("\(player.name) needs an exact roll to reach 100.")
             return
         }
         
-        // Apply basic movement
         player.currentSquare = newSquare
         
-        // Check if landing on a snake or ladder
+        // ARRAY SEARCH: We loop through the boardElements array to see if the player 
+        // landed on a special square.
         for element in boardElements {
             if element.startSquare == player.currentSquare {
-                // Apply the move to the end of the element
                 player.currentSquare = element.endSquare
                 let typeName = element.type == .ladder ? "ladder" : "snake"
                 addToLog("\(player.name) landed on a \(typeName)! Moved to \(player.currentSquare)")
-                break // Only land on one element per move
+                break 
             }
         }
     }
     
-    // Switches turn to the next player in the list
     private func nextTurn() {
         currentPlayerIndex = (currentPlayerIndex + 1) % players.count
     }
     
-    // Adds a message to the game log and keeps it trimmed to recent events
+    /// FUNCTION INPUT: 'message' is the text we want to add to our log.
     private func addToLog(_ message: String) {
+        // ARRAY MODIFICATION: We append the new message to the end of our list.
         gameLog.append(message)
-        // Keep only the 10 most recent messages
+        
         if gameLog.count > 10 {
+            // ARRAY MODIFICATION: We remove the item at index 0 to keep the list short.
             gameLog.removeFirst()
         }
     }

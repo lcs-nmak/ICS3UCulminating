@@ -7,8 +7,10 @@
 
 import Foundation
 
-// Defines whether the element is a snake (goes down) or a ladder (goes up)
+/// This 'enum' (enumeration) defines the two possible types for board features.
+/// Enums are great when you have a fixed set of options, as they prevent typos 
+/// and make the code much easier to read.
 enum BoardElementType {
-    case snake
-    case ladder
+    case snake    // Represents a slide down the board
+    case ladder   // Represents a climb up the board
 }
